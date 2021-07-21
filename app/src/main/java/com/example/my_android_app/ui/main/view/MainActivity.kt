@@ -7,11 +7,11 @@ import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.my_android_app.R
 import com.example.mylibrary.FragmentTwo
+import com.example.mylibrary.User
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -37,11 +37,22 @@ class MainActivity : AppCompatActivity(){
 //            intent.putExtra("UserName",userName)
 ////            resultLauncher.launch(intent)
 //            startActivityForResult(intent,LAUNCH_ACTIVITY)
+
+            var user = User().apply {
+                this.name = userName
+                this.gender = "Male"
+            }
+            //day la lan thu 5
+//            var nameUser = user.name
+//            nameUser = userName
+
             val bundle = Bundle()
             bundle.putString("edttext", userName)
+            bundle.putSerializable("user", user)
             val fragmentTwo = FragmentTwo().apply {
                 this.arguments = bundle
             }
+
             val manager: FragmentManager = this.supportFragmentManager
             val transaction: FragmentTransaction = manager.beginTransaction()
             transaction.replace(R.id.fragment_one, fragmentTwo, "FragmentTwo")
