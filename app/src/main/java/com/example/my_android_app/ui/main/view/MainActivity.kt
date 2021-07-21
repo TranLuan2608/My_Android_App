@@ -1,26 +1,26 @@
 package com.example.my_android_app.ui.main.view
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.AttributeSet
 import android.util.Log
-import android.view.View
 import android.widget.EditText
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.example.my_android_app.R
-import com.example.mylibrary.ActivityTestLibrary
+import com.example.mylibrary.FragmentTwo
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity(){
     var userName = ""
     val LAUNCH_ACTIVITY = 1991
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("Lifecycle","onCreate")
         setContentView(R.layout.activity_main)
 
 
@@ -28,14 +28,38 @@ class MainActivity : AppCompatActivity(){
         btnAddUserName.setOnClickListener {
             userName = edtUserName.text.toString()
             Log.d("TagN","NameMain $userName")
-            val intent = Intent(this,ActivityTestLibrary::class.java).apply {
-
-
+//            val intent = Intent(this,ActivityTestLibrary::class.java).apply {
+//
+////                this.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+////                this.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//
+//            }
+//            intent.putExtra("UserName",userName)
+////            resultLauncher.launch(intent)
+//            startActivityForResult(intent,LAUNCH_ACTIVITY)
+            val bundle = Bundle()
+            bundle.putString("edttext", userName)
+            val fragmentTwo = FragmentTwo().apply {
+                this.arguments = bundle
             }
-            intent.putExtra("UserName",userName)
-//            resultLauncher.launch(intent)
-            startActivityForResult(intent,LAUNCH_ACTIVITY)
+            val manager: FragmentManager = this.supportFragmentManager
+            val transaction: FragmentTransaction = manager.beginTransaction()
+            transaction.replace(R.id.fragment_one, fragmentTwo, "FragmentTwo")
+            transaction.addToBackStack(null)
+            transaction.commit()
+
+
+
+
         }
+
+        val manager: FragmentManager = this.supportFragmentManager
+        val transaction: FragmentTransaction = manager.beginTransaction()
+        transaction.add(R.id.fragment_one, FragmentOne(), "FragmentOne")
+        transaction.addToBackStack(null)
+        transaction.commit()
+
+
 
     }
 
@@ -62,18 +86,32 @@ class MainActivity : AppCompatActivity(){
 
     override fun onResume() {
         super.onResume()
+        Log.d("Lifecycle","onResume")
     }
 
     override fun onStop() {
         super.onStop()
+        Log.d("Lifecycle","onStop")
     }
 
     override fun onStart() {
         super.onStart()
+        Log.d("Lifecycle","onStart")
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        Log.d("Lifecycle","onDestroy")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.d("Lifecycle","onRestart")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("Lifecycle","onPause")
     }
 
 
