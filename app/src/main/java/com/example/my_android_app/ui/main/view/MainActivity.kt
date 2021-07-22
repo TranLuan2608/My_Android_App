@@ -27,11 +27,11 @@ class MainActivity : AppCompatActivity(){
         val edtUserName = findViewById<EditText>(R.id.edtUserName)
         btnAddUserName.setOnClickListener {
             userName = edtUserName.text.toString()
-            Log.d("TagN","NameMain $userName")
-//            val intent = Intent(this,ActivityTestLibrary::class.java).apply {
+//            Log.d("TagN","NameMain $userName")
+//            val intent = Intent(this, ActivityTestLibrary::class.java).apply {
 //
-////                this.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-////                this.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                this.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+//                this.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 //
 //            }
 //            intent.putExtra("UserName",userName)

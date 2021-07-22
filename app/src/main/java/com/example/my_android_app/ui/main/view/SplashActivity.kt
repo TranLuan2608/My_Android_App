@@ -6,7 +6,6 @@ import android.os.Handler
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.example.my_android_app.R
-import com.example.mylibrary.ActivityTestLibrary
 
 class SplashActivity : AppCompatActivity()   {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +17,7 @@ class SplashActivity : AppCompatActivity()   {
         )
 
         Handler().postDelayed({
-            val intent =  Intent(this, MainActivity::class.java).apply {
+            val intent =  Intent(this, LoginActivity::class.java).apply {
                 this.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 this.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }

@@ -19,7 +19,10 @@ class ActivityTestLibrary : AppCompatActivity(){
         val userName = intent.getStringExtra("UserName")
         Log.d("TagN","Name $userName")
         val tvUserName = findViewById<TextView>(R.id.tvUserName)
+
+
         tvUserName.text = userName
+
 
         val namSinh = findViewById<EditText>(R.id.edtNamSinhUser)
         val btnAddNamSinh = findViewById<Button>(R.id.btnAddNamSinh)

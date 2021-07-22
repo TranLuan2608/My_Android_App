@@ -20,10 +20,7 @@ class FragmentTwo : Fragment() {
 //        val strtext = requireArguments().getString("edttext")
 //        tvFragmentTwo.text = strtext
         val user = requireArguments().getSerializable("user")
-
         tvFragmentTwo.text = user.toString()
-
-
     }
 
 
