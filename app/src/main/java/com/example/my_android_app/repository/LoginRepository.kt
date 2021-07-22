@@ -10,20 +10,19 @@ class LoginRepository @Inject constructor(
     private val db: UserDataBase
 ) {
     private val userDao = db.userDao()
-    fun dayLaApi(uiUser: UiUser?): ResponseUser
-    {
+    fun dayLaApi(uiUser: UiUser?): ResponseUser {
         return ResponseUser().apply {
             this.data = uiUser
             this.status = true
         }
     }
-
-    suspend fun insertUser(uiUser: UiUser)
+    suspend fun addUser(user: UserEntity)
     {
-//       userDao.insertUser(uiUser)
+        userDao.insertUser(user)
     }
-//    fun checkUser(uiUser: UiUser): UserEntity
-//    {
-////        return userDao.getUser(uiUser)
-//    }
+    suspend fun checkUser(nameUserLog: String, passUserLog: String): UserEntity
+    {
+        return userDao.getUser(nameUserLog, passUserLog)
+    }
+
 }

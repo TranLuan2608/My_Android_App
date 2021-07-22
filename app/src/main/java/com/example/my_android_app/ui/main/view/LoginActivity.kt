@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.my_android_app.R
 import com.example.my_android_app.data.UiUser
+import com.example.my_android_app.data.model.local.UserEntity
 import com.example.my_android_app.ui.main.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_login.*
@@ -26,12 +27,19 @@ class LoginActivity :AppCompatActivity()
         btnLogin.setOnClickListener {
             val userName = edtLoginUserName.text.toString()
             val passWord = edtLoginPass.text.toString()
-            val user = UiUser().apply {
-                this.userName = userName
-                this.passWord = passWord
-                this.status = true
+
+            val user = UserEntity(userName,passWord,true)
+
+//                loginViewModel.addUserLog(user)
+//
+            val check = loginViewModel.checkStatusUser(userName,passWord)
+            Log.d("TagF","Status ${check.status}")
+            if(check.status)
+            {
+                startActivity(Intent(this,UserActivity::class.java))
+            }else{
+                Toast.makeText(this,"Nhap sai User hoac Pass",Toast.LENGTH_LONG).show()
             }
-            loginViewModel.addUser(user)
 
 //            val check  = loginViewModel.checkStatusUser(user)
 //            val nameUserLog = check.userName

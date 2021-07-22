@@ -18,21 +18,26 @@ class LoginViewModel @ViewModelInject constructor(
 {
     private val _user = MutableLiveData<UiUser>()
     val uiUser: LiveData<UiUser>  get() = _user
+    private var userLog: UserEntity = UserEntity("","",false)
 
 
     fun fetchUser(uiUser: UiUser): ResponseUser {
         return loginRepository.dayLaApi(uiUser)
     }
 
-    fun addUser(uiUser: UiUser)
+
+     fun addUserLog(user: UserEntity)
     {
         viewModelScope.launch {
-            loginRepository.insertUser(uiUser)
+            loginRepository.addUser(user)
         }
 
     }
-//    fun checkStatusUser(uiUser: UiUser): UserEntity
-//    {
-//        return loginRepository.checkUser(uiUser)
-//    }
+     fun checkStatusUser(nameUserLog: String, passUserLog: String) :UserEntity
+    {
+        viewModelScope.launch {
+             userLog = loginRepository.checkUser(nameUserLog,passUserLog)
+        }
+        return  userLog
+    }
 }
