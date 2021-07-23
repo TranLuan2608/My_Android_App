@@ -6,14 +6,11 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import com.example.my_android_app.R
 import com.example.my_android_app.data.UiUser
-import com.example.my_android_app.data.model.local.UserEntity
 import com.example.my_android_app.ui.main.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.coroutines.runBlocking
 
 
 @AndroidEntryPoint
@@ -47,7 +44,7 @@ class LoginActivity :AppCompatActivity()
             }
         })
 
-            //
+
 //            val check = loginViewModel.checkStatusUser(userName,passWord)
 //            Log.d("TagF","Status ${check.status}")
 //            if(check.status)

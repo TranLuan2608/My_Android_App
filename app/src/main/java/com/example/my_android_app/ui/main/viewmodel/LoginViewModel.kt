@@ -6,14 +6,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.my_android_app.data.model.local.ResponseUser
 import com.example.my_android_app.data.UiUser
 import com.example.my_android_app.data.model.local.UserEntity
 import com.example.my_android_app.repository.LoginRepository
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.util.logging.Handler
 
 
 class LoginViewModel @ViewModelInject constructor(
