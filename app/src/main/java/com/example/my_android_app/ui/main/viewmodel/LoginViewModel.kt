@@ -1,5 +1,6 @@
 package com.example.my_android_app.ui.main.viewmodel
 
+import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,7 +10,9 @@ import com.example.my_android_app.data.model.local.ResponseUser
 import com.example.my_android_app.data.UiUser
 import com.example.my_android_app.data.model.local.UserEntity
 import com.example.my_android_app.repository.LoginRepository
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.logging.Handler
 
 
 class LoginViewModel @ViewModelInject constructor(
@@ -18,11 +21,16 @@ class LoginViewModel @ViewModelInject constructor(
 {
     private val _user = MutableLiveData<UiUser>()
     val uiUser: LiveData<UiUser>  get() = _user
-    private var userLog: UserEntity = UserEntity("","",false)
 
 
-    fun fetchUser(uiUser: UiUser): ResponseUser {
-        return loginRepository.dayLaApi(uiUser)
+    fun responseUserApi(uiUser: UiUser){
+        viewModelScope.launch {
+            loginRepository.dayLaApi(uiUser).let {
+                loginRepository.saveUser(loginRepository.dayLaApi(uiUser))
+                val resUser = UiUser(it.data!!.userName,it.data!!.passWord,it.status)
+                _user.postValue(resUser)
+            }
+        }
     }
 
 
@@ -33,11 +41,15 @@ class LoginViewModel @ViewModelInject constructor(
         }
 
     }
-     fun checkStatusUser(nameUserLog: String, passUserLog: String) :UserEntity
+     fun checkStatusUser(nameUserLog: String, passUserLog: String)
     {
         viewModelScope.launch {
-             userLog = loginRepository.checkUser(nameUserLog,passUserLog)
+            delay(2000)
+            Log.d("TagF","Status onDelay")
+            loginRepository.checkUser(nameUserLog,passUserLog).let {
+                val userUi = UiUser(it.userName,it.userPass,it.status)
+                _user.postValue(userUi)
+            }
         }
-        return  userLog
     }
 }

@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName
 data class UserEntity (
     @PrimaryKey
     @SerializedName("userName")
-    var userName: String ,
+    var userName: String,
     @SerializedName("userPass")
     var userPass: String,
     @SerializedName("status")

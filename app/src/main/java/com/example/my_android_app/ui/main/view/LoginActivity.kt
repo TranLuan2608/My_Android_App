@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.example.my_android_app.R
 import com.example.my_android_app.data.UiUser
 import com.example.my_android_app.data.model.local.UserEntity
@@ -27,19 +28,31 @@ class LoginActivity :AppCompatActivity()
         btnLogin.setOnClickListener {
             val userName = edtLoginUserName.text.toString()
             val passWord = edtLoginPass.text.toString()
-
-            val user = UserEntity(userName,passWord,true)
-
-//                loginViewModel.addUserLog(user)
-//
-            val check = loginViewModel.checkStatusUser(userName,passWord)
-            Log.d("TagF","Status ${check.status}")
-            if(check.status)
-            {
-                startActivity(Intent(this,UserActivity::class.java))
-            }else{
-                Toast.makeText(this,"Nhap sai User hoac Pass",Toast.LENGTH_LONG).show()
+            val uiUser = UiUser().apply {
+                this.userName = userName
+                this.passWord = passWord
             }
+            loginViewModel.responseUserApi(uiUser)
+            loginViewModel.uiUser.observe(this, Observer {
+                if(it.status == true)
+                {
+                    startActivity(Intent(this,UserActivity::class.java))
+                }else{
+                Toast.makeText(this,"Nhap sai UserName hoac PassWord",Toast.LENGTH_LONG).show()
+            }
+            })
+
+
+
+
+//            val check = loginViewModel.checkStatusUser(userName,passWord)
+//            Log.d("TagF","Status ${check.status}")
+//            if(check.status)
+//            {
+//                startActivity(Intent(this,UserActivity::class.java))
+//            }else{
+//                Toast.makeText(this,"Nhap sai User hoac Pass",Toast.LENGTH_LONG).show()
+//            }
 
 //            val check  = loginViewModel.checkStatusUser(user)
 //            val nameUserLog = check.userName

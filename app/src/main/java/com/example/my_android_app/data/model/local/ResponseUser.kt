@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class ResponseUser (
     @SerializedName("data")
-    var data: UiUser? = null,
+    var data: UiUser? = null ,
     @SerializedName("status")
     var status: Boolean? = null
     )
