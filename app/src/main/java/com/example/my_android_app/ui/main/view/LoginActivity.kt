@@ -13,6 +13,7 @@ import com.example.my_android_app.data.model.local.UserEntity
 import com.example.my_android_app.ui.main.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.coroutines.runBlocking
 
 
 @AndroidEntryPoint
@@ -32,19 +33,21 @@ class LoginActivity :AppCompatActivity()
                 this.userName = userName
                 this.passWord = passWord
             }
+
             loginViewModel.responseUserApi(uiUser)
-            loginViewModel.uiUser.observe(this, Observer {
-                if(it.status == true)
-                {
-                    startActivity(Intent(this,UserActivity::class.java))
-                }else{
+        }
+
+        loginViewModel.uiUser.observe(this, {
+            Log.d("TagH","status ${it.status}")
+            if(it.status == true)
+            {
+                startActivity(Intent(this,UserActivity::class.java))
+            }else{
                 Toast.makeText(this,"Nhap sai UserName hoac PassWord",Toast.LENGTH_LONG).show()
             }
-            })
+        })
 
-
-
-
+            //
 //            val check = loginViewModel.checkStatusUser(userName,passWord)
 //            Log.d("TagF","Status ${check.status}")
 //            if(check.status)
@@ -69,38 +72,7 @@ class LoginActivity :AppCompatActivity()
 //                Toast.makeText(this,"Nhap sai User hoac Pass",Toast.LENGTH_LONG).show()
 //            }
 
-        }
-    }
-    override fun onResume() {
-        super.onResume()
-        Log.d("Lifecycle","onResume")
 
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d("Lifecycle","onStop")
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d("Lifecycle","onStart")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("Lifecycle","onDestroy")
-
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        Log.d("Lifecycle","onRestart")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d("Lifecycle","onPause")
     }
 
 
