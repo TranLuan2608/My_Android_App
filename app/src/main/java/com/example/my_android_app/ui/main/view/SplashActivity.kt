@@ -17,7 +17,7 @@ class SplashActivity : AppCompatActivity()   {
         )
 
         Handler().postDelayed({
-            val intent =  Intent(this, LoginActivity::class.java).apply {
+            val intent =  Intent(this, MainActivity::class.java).apply {
                 this.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 this.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }

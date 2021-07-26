@@ -14,6 +14,7 @@ class LoginRepository @Inject constructor(
     fun dayLaApi(uiUser: UiUser): ResponseUser {
         return ResponseUser(uiUser, true)
     }
+
     //chuyen responseUser thanh userEntity de luu xuong db
     //tu userEntity doi thanh uiUser de tra du lieu ra
 
@@ -25,14 +26,10 @@ class LoginRepository @Inject constructor(
         addUser(resUser)
         emit(true)
     }
-
     suspend fun addUser(user: UserEntity) {
         userDao.insertUser(user)
     }
-
-
     suspend fun checkUser(nameUserLog: String, passUserLog: String)= flow {
-
         emit( userDao.getUser(nameUserLog, passUserLog))
     }
 
